@@ -1,0 +1,143 @@
+@font-face {
+    font-family: myFont;
+    src: url(Poppins/Poppins-Regular.ttf);
+  }
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    background-color: #efefef;
+    background: radial-gradient(40% 40% at 28% 29%, rgba(215, 215, 250, 0.873) 0%, rgba(221, 221, 244, 0) 100%), #FAFAFA;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0%;
+}
+.role{
+    display: flex;
+    align-items: center;
+    line-height: 27px;
+    color: #A4A4A4;;
+    font-family:'Poppins', sans-serif;
+    margin-left: 25px;
+    font-weight: 400;
+    font-size: 13px;
+}
+/* .background{
+    background: radial-gradient(40% 40% at 28% 29%, rgba(215, 215, 250, 0.873) 0%, rgba(221, 221, 244, 0) 100%), #FAFAFA;
+} */
+.sign-in-to{
+    margin-left: 100px;
+    font-family:'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 32px;
+    color: #141414;
+    margin-bottom:30px;
+}
+.cis-cloud{
+    margin-left: 100px;
+    font-family:'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 55px;
+    line-height: 32px;
+    color: #52459F;
+    text-overflow:ellipsis;
+}
+.icon-cloud-login{
+    width: 88px;
+    height: 88px;
+}
+.des-thai1{
+    margin-left: 100px;
+    font-family: 'Kanit', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    color: #000000;
+    width: 65%;
+}
+.username{
+    margin-top: 30px;
+    width: 125px;
+    font-family: myFont;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #4F4F4F;
+}
+#exampleInputEmail1{
+    width: 360px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+#inputPassword5{
+    width: 360px;
+    padding: 10px;
+    margin-bottom: 13px;
+}
+#passwordHelpBlock{
+    font-family: myFont;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+/* .username-box{
+    width: 400px;
+    padding: 20px;
+    background: #EAF0F7;
+    border-radius: 10px;
+    border: 0.5px;
+    margin-bottom: 30px;
+} */
+.Password{
+    width: 125px;
+    font-family: myFont;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #4F4F4F;
+}
+/* .Password-box{
+    width: 400px;
+    padding: 20px;
+    background: #EAF0F7;
+    border-radius: 10px;
+    border: 0.5px;
+    margin-bottom: 30px;
+} */
+.Role{
+    width: 125px;
+    font-family: myFont;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    color: #4F4F4F;
+}
+#form-select{
+    width: 360px;
+    padding: 10px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.button-signin{
+    font-family: myFont;
+    color: #FFFFFF;
+    /* background: #4461F2; */
+    width: 130px;
+    height:42px;
+    font-size: 10px;
+    font-weight: bold;
+    /* box-shadow: 20px 20px 40px #C3CCFD; */
+    cursor: pointer;
+}
