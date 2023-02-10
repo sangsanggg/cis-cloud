@@ -1,3 +1,5 @@
 NewServlet.class
 FTPServlet.class
+logoutServlet.class
+LoginServlet.class
 upload.class
