@@ -5,6 +5,7 @@
 --%>
 <%@page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,6 +26,7 @@
         ></script>
     </head>
     <body>
+        
         <%
               Connection connect = null;
               ResultSet rec = null;
@@ -34,7 +36,7 @@
                       Class.forName("com.mysql.jdbc.Driver");
                       connect = DriverManager.getConnection("jdbc:mysql://localhost:3307/projectcloud1","root","");
                       s = connect.createStatement();
-                      String sql = "SELECT DISTINCT backup.user_id,name,last_name FROM backup,user WHERE user.user_id = backup.user_id ORDER BY backup.user_id";
+                      String sql = "SELECT DISTINCT backup.user_id,name,last_name FROM backup,user WHERE user.user_id = backup.user_id order by backup_id ASC";
                       rec = s.executeQuery(sql);
                     
               }catch (Exception e){
@@ -110,21 +112,24 @@
 
             <main class="content">
                 <h1>Backups</h1>
-                <div class="container-fluid" style="display: flex; justify-items: start;">
-                    <%while((rec!=null)&&(rec.next())){ %>
-                    
-                    <a href='backup-detail.jsp?u=<%=rec.getString("user_id")%>' class="btn" >
-                        <div class="item_card" style="width : 15%; display: inline; height: 15%; margin: 15px; ">
-                            <div class="card text-center" id="folder">
-                                <div class="card-body">
-                                    <i class="fa-solid fa-folder"></i>
-                                    <h5 class="card-title"><%=rec.getString("name")%> <%=rec.getString("last_name")%></h5>
+                <div class="container-fluid" style=" height: 100%;">
+                    <div class="row">
+                        <%while((rec!=null)&&(rec.next())){ %>
+                        <div class="col-2" style="height:200px">
+                            <a href='backup-detail.jsp?u=<%=rec.getString("user_id")%>' class="btn" style="width : 15%; display: inline; height: 15%;">
+                                <div class="item_card" >
+                                    <div class="card text-center" id="folder">
+                                        <div class="card-body">
+                                            <i class="fa-solid fa-folder"></i>
+                                            <h5 class="card-title"><%=rec.getString("name")%> <%=rec.getString("last_name")%></h5>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </a>
+                            </a>
 
-                    <% } %>
+                        </div>
+                        <% } %>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="backup_title">
@@ -145,116 +150,115 @@
                                         <div class="card-title"></div>-->
 
 
-                                        <!-- row folder -->
+                <!-- row folder -->
 
-                                        <!--<div class="row my-4">
-                                            
-                                          <div class="col-2 item_card">
-                                            <div class="card text-center" id="folder">
-                                              <div class="card-body">
-                                                <i class="fa-solid fa-folder"></i>
-                                                <h5 class="card-title">Pornpan saechua</h5>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-2 item_card">
-                                            <div class="card text-center" >
-                                              <div class="card-body">
-                                                <i class="fa-solid fa-folder"></i>
-                                                <h5 class="card-title">Pornpan saechua</h5>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-2 item_card">
-                                            <div class="card text-center">
-                                              <div class="card-body">
-                                                <i class="fa-solid fa-folder"></i>
-                                                <h5 class="card-title">Pornpan saechua</h5>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-2 item_card">
-                                            <div class="card text-center">
-                                              <div class="card-body">
-                                                <i class="fa-solid fa-folder"></i>
-                                                <h5 class="card-title">Pornpan saechua</h5>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-2 item_card">
-                                            <div class="card text-center">
-                                              <div class="card-body">
-                                                <i class="fa-solid fa-folder"></i>
-                                                <h5 class="card-title">Pornpan saechua</h5>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-2 item_card">
-                                            <div class="card text-center">
-                                              <div class="card-body">
-                                                <i class="fa-solid fa-folder"></i>
-                                                <h5 class="card-title">Pornpan saechua</h5>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>-->
-
-                                         <!--<%while((rec!=null)&&(rec.next())){ %>
-                                        <div class="item_card" style="display: flex; box-sizing: border-box;">
-                                            <div class="card text-center" id="folder" style="display: block; box-sizing: border-box;">
-                                                <div class="card-body" style="display: block; box-sizing: border-box;">
-                                                    <i class="fa-solid fa-folder"></i>
-                                                    <h5 class="card-title"><%=rec.getString("user_id")%></h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <% } %>-->
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!--<div class="row my-4">
+                    
+                  <div class="col-2 item_card">
+                    <div class="card text-center" id="folder">
+                      <div class="card-body">
+                        <i class="fa-solid fa-folder"></i>
+                        <h5 class="card-title">Pornpan saechua</h5>
+                      </div>
                     </div>
+                  </div>
+                  <div class="col-2 item_card">
+                    <div class="card text-center" >
+                      <div class="card-body">
+                        <i class="fa-solid fa-folder"></i>
+                        <h5 class="card-title">Pornpan saechua</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 item_card">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-folder"></i>
+                        <h5 class="card-title">Pornpan saechua</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 item_card">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-folder"></i>
+                        <h5 class="card-title">Pornpan saechua</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 item_card">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-folder"></i>
+                        <h5 class="card-title">Pornpan saechua</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 item_card">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-folder"></i>
+                        <h5 class="card-title">Pornpan saechua</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>-->
+
+                <!--<%while((rec!=null)&&(rec.next())){ %>
+               <div class="item_card" style="display: flex; box-sizing: border-box;">
+                   <div class="card text-center" id="folder" style="display: block; box-sizing: border-box;">
+                       <div class="card-body" style="display: block; box-sizing: border-box;">
+                           <i class="fa-solid fa-folder"></i>
+                           <h5 class="card-title"><%=rec.getString("user_id")%></h5>
+                       </div>
+                   </div>
+               </div>
+
+                <% } %>-->
 
 
-
-                </div>
-
-
-            </main>
         </div>
-
-        <script>
-            const menu_toggle = document.querySelector(".menu-toggle");
-            const sidebar = document.querySelector(".sidebar");
-
-            const folder = document.getElementById("folder");
-            const FD = document.querySelector(".card");
-
-            FD.addEventListener("click", () => {
-                location.replace('./backup-detail.jsp');
-                console.log(FD);
-            });
+    </div>
+</div>
+</div>
+</div>
 
 
-            
-            const gotoFD = () => {
-                location.replace('./backup-detail.jsp');
-            }
 
-            folder.addEventListener("click", () => {
-                location.replace('./backup-detail.jsp');
-                console.log(FD);
-            });
+</div>
 
-            menu_toggle.addEventListener("click", () => {
-                menu_toggle.classList.toggle("is-active");
-                sidebar.classList.toggle("is-active");
-            });
-        </script>
-    </body>
+
+</main>
+</div>
+
+<script>
+    const menu_toggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    const folder = document.getElementById("folder");
+    const FD = document.querySelector(".card");
+
+    FD.addEventListener("click", () => {
+        location.replace('./backup-detail.jsp');
+        console.log(FD);
+    });
+
+
+
+    const gotoFD = () => {
+        location.replace('./backup-detail.jsp');
+    }
+
+    folder.addEventListener("click", () => {
+        location.replace('./backup-detail.jsp');
+        console.log(FD);
+    });
+
+    menu_toggle.addEventListener("click", () => {
+        menu_toggle.classList.toggle("is-active");
+        sidebar.classList.toggle("is-active");
+    });
+</script>
+</body>
 </html>
-
 

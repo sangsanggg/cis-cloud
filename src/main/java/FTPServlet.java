@@ -82,6 +82,7 @@ public class FTPServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        //get data form request
         PrintWriter out = response.getWriter();
         String folderName = request.getParameter("username");
         Part filePart = request.getPart("docker_file");
@@ -89,33 +90,10 @@ public class FTPServlet extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         FTPClient ftpClient = new FTPClient();
         ftpClient.setUseEPSVwithIPv4(false);//remove if use IPV6
-        String containerName = String.format("username_%s", folderName );
+        String containerName = String.format("username-%s", folderName );
         String externalPort = request.getParameter("external");
         String internalPort = request.getParameter("internal");
-        try {
-            ftpClient.connect("127.0.0.1", 21);
-            ftpClient.login("B1", "root");
-            ftpClient.enterLocalPassiveMode();
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            ftpClient.makeDirectory(folderName); // create new folder
-            ftpClient.changeWorkingDirectory(folderName); // move to new folder
-            ftpClient.storeFile(fileName, fileContent);
-            //generate batch file
-            StringBuilder sb = new StringBuilder();
-            sb.append("@echo off\n\n");
-            sb.append("REM Run the image\n");
-            String a = String.format("docker run -d --name %s -p %s:%s my_image\n\n",containerName, externalPort, internalPort);
-            sb.append(a);
-            String batCommand = sb.toString();
-            //
-            ftpClient.storeFile("run_docker.bat", new ByteArrayInputStream(batCommand.getBytes()));
-            response.sendRedirect("/mavenproject1/manage-docker-image_list.jsp"); 
-        } catch (IOException e) {
-            out.println("Error uploading file: " + e.getMessage());
-        } finally {
-            fileContent.close();
-            ftpClient.disconnect();
-        }  
+        System.out.printf("%s %s %s %s",fileName, containerName, externalPort, internalPort);
     }
 
     /**
