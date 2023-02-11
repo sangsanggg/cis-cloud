@@ -170,7 +170,7 @@
                       </td>
                       <td><%=rec.getString("created")%></td>
                       <td><%=rec.getString("server_ip")%></td>
-                      <td><%=rec.getString("internal_port")+ ":" + rec.getString("external_port")%></td>
+                      <td><%=rec.getString("external_port")+ ":" + rec.getString("internal_port")%></td>
 <!--                      <td><%=rec.getString("role")%></td>-->
                       <td>
                         <button type="button" class="btn btn-success">

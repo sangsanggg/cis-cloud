@@ -428,7 +428,13 @@
                                             <%while ((rec != null) && (rec.next())) {%>  
                                             <tr>
                                                 <td><%=rec.getString("name") + " " + rec.getString("last_name")%></td>
-                                                <td><button type="button" class="btn btn-success" disabled>Running</button></td>
+                                               <td>
+                                                <% if (rec.getInt("con_status") == 1) { %>
+                                                <button type="button" class="btn btn-success w-75" disabled >Running</button>
+                                                <% } else { %>
+                                                <button type="button" class="btn btn-dark w-75"  disabled >Stop</button>
+                                                <% }%>
+                                            </td>
                                                 <td><%=rec.getString("name_image")%></td>
                                                 <td><%=rec.getString("server_ip")%></td>
                                                 <td><%=rec.getString("internal_port") + ":" + rec.getString("external_port")%></td>

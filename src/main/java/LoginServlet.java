@@ -32,16 +32,16 @@ public class LoginServlet extends HttpServlet {
         //database
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectcloud2", "root", "");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3307/projectcloud1", "root", "");
             Statement s = connect.createStatement();
             String sql = "SELECT * FROM user where username='"+username+"' and password= '"+password+"'";
             ResultSet rs = s.executeQuery(sql);
             
             if(rs.next()){
-            session.setAttribute("name", rs.getString("username"));
-            session.setAttribute("role", rs.getString("role"));
-            dispatcher = req.getRequestDispatcher("dashboard.jsp");
-            
+                session.setAttribute("id", rs.getString("user_id"));
+                session.setAttribute("name", rs.getString("username"));
+                session.setAttribute("role", rs.getString("role").toLowerCase());
+                dispatcher = req.getRequestDispatcher("dashboard.jsp");
             }else{
                 System.out.println("wrong username or password");
                 req.setAttribute("status", "failed");

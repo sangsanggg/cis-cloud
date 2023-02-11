@@ -50,13 +50,13 @@
                         <div id="passwordHelpBlock" class="form-text">
                             Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                         </div>
-<!--                        <p class="Role">Role</p>
+                        <p class="Role">Role</p>
                         <select class="form-select" name="role" id="form-select"aria-label="Default select example">
                             <option selected>Select Role</option>
                             <option value="Admin">Admin</option>
                             <option value="Teacher">Teacher</option>
                             <option value="Student">Student</option>
-                        </select>-->
+                        </select>
                         <button type="submit" id="myButton" class="btn btn-secondary button-signin fs-5" value="login">Login</button>
                        
 
