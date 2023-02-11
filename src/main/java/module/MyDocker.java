@@ -71,4 +71,68 @@ public class MyDocker {
             return jsonResponse;
         }
     }
+    
+    public String startContainer(String containerId){
+        String jsonResponse = "";
+        try (Socket clientSocket = new Socket(this.host, this.port);
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+
+            Gson gson = new Gson();
+
+            Request request = new Request("1",this.username,"START_C", this.userType);
+            request.setContainerId(containerId);
+            String jsonRequest = gson.toJson(request);
+            out.println(jsonRequest);
+
+            jsonResponse = in.readLine();
+       
+            return jsonResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return jsonResponse;
+        }
+    }
+    public String stopContainer(String containerId){
+        String jsonResponse = "";
+        try (Socket clientSocket = new Socket(this.host, this.port);
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+
+            Gson gson = new Gson();
+
+            Request request = new Request("1",this.username,"STOP_C", this.userType);
+            request.setContainerId(containerId);
+            String jsonRequest = gson.toJson(request);
+            out.println(jsonRequest);
+
+            jsonResponse = in.readLine();
+       
+            return jsonResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return jsonResponse;
+        }
+    }
+     public String deleteContainer(String containerId){
+        String jsonResponse = "";
+        try (Socket clientSocket = new Socket(this.host, this.port);
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+
+            Gson gson = new Gson();
+
+            Request request = new Request("1",this.username,"REMOVE_C", this.userType);
+            request.setContainerId(containerId);
+            String jsonRequest = gson.toJson(request);
+            out.println(jsonRequest);
+
+            jsonResponse = in.readLine();
+       
+            return jsonResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return jsonResponse;
+        }
+    }
 }

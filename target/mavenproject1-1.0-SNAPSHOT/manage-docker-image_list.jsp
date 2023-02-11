@@ -161,6 +161,7 @@
                       
                      
                       <td>
+                          <a href='' class="btn  btn-primary" ><i class="fa-sharp fa-solid fa-arrow-up"></i> Build Container</a>
                        <a href="delete-image.jsp?img_id=<%=rec.getString("img_id")%><button type="button" class="btn btn-danger" onclick="deleteinfo()"><i class="fa-solid fa-trash"></i> Delete</a></button>
                       </td>
                     </tr>
