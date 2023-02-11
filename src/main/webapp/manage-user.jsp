@@ -24,6 +24,12 @@
     </head>
     <body>
         <%
+            if (session.getAttribute("name") == null) {
+                response.sendRedirect("index.jsp");
+            }
+
+        %>
+        <%
             Connection connect = null;
             ResultSet rec = null;
             Statement s = null;
@@ -60,8 +66,8 @@
             <div class="profile_details">
               <img src="image/member-6 1.svg">
               <div class="name_job">
-                <div class="name"><b>Pornpan</b></div>
-                <div class="job">Admin</div>
+               <div class="name"><b><%=session.getAttribute("name")%></b></div>
+                                <div class="job"><%=session.getAttribute("role")%></div>
               </div>
             </div>
             <i class="fa-solid fa-ellipsis" id="setting"></i>
@@ -94,13 +100,10 @@
             <b>Backups</b>
           </a>
 
-            <a href="#" class="menu-item">
-              <img src="image/icon-profile.svg" />
-              <b>Profile</b>
-            </a>
-            <a href="#" class="menu-item">
-              <img src="image/icon-setting.svg" />
-              <b>Setting</b>
+            <a class="menu-item" href="Logout">
+                        <img src="image/icon-profile.svg" />
+                        <b>Logout</b>
+                    </a>
             </a>
         </nav>
       </aside>
