@@ -3,7 +3,12 @@
     Created on : Nov 26, 2022, 2:34:50 AM
     Author     : SANGSANG
 --%>
-
+<%@page import= "java.sql.ResultSet"%>
+<%@page import= "java.sql.Statement"%>
+<%@page import= "java.sql.DriverManager"%>
+<%@page import= "java.sql.PreparedStatement"%>
+<%@page import= "java.sql.Connection"%>
+<%@ page import="java.sql.SQLException" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +116,7 @@
               <div class="col input_area" style="height:870px;">
                 
                 <h5>Name</h5>
-                <input type="text" class="form-control w-25" name="username" placeholder="Docker Image Name" style="height: 40px;">
+                <input type="text" class="form-control w-25" name="containerName" placeholder="Docker Container Name" style="height: 40px;">
                 <h5><p>Upload File</p></h5>
 
                 <div class="col-xl-12 item_card">
@@ -126,14 +131,54 @@
                 <br><h4>Port Mapping</h4><br>
                 <h5>Select server</h5>
                 <div class="select">
-                    <select name="format" id="format">
-                      <option selected disabled>Select Server</option>
-                      <option value="127.0.0.1">server_01</option>
-                      <option value="pdf">server_02</option>
-                      <option value="pdf">server_03</option>
-                      <option value="pdf">server_04</option>
-                      <option value="pdf">server_05</option>
-                      
+                     <%
+	
+	Statement s = null;
+	Connection connect = null;
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		connect =  DriverManager.getConnection("jdbc:mysql://localhost:3307/projectcloud1","root","");
+		
+		s = connect.createStatement();
+		
+		String sql = "SELECT * FROM  server ORDER BY server_id ASC";
+		
+		ResultSet rec = s.executeQuery(sql);
+		%>
+		
+                <select name="cmbSever">
+                        <option value="null">Select Server</option>
+			<%while((rec!=null) && (rec.next())) { %>
+                        <option value="<%= String.format("%s-%s", rec.getString("server_id"), rec.getString("server_ip"))%>"
+                                
+                                <%
+                                if(request.getParameter("cmbSever")!=null)
+                                {
+                                    if(rec.getInt("server_id")==Integer.parseInt(request.getParameter("cmbSever")))
+                                    {
+                                        out.println("selected");
+                                    }
+                                }
+                                %>
+                                
+                                ><%=rec.getString("server_name")%></option>
+			<%}
+                            connect.close();
+                            rec.close();
+
+                        %>
+		  </select>		
+	     
+	    <%	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	
+		
+	%>
                     </select>
                 </div><br>
                   

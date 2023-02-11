@@ -10,15 +10,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.model.Image;
-import com.github.dockerjava.core.DockerClientBuilder;
+import module.MyFTP;
+import module.MyDocker;
+import model.Response;
 
 
 /**
@@ -84,16 +81,36 @@ public class FTPServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //get data form request
         PrintWriter out = response.getWriter();
-        String folderName = request.getParameter("username");
+        //get request data
+        String server = request.getParameter("cmbSever");
+        String containerName = request.getParameter("containerName");
         Part filePart = request.getPart("docker_file");
-        String fileName = filePart.getSubmittedFileName();
-        InputStream fileContent = filePart.getInputStream();
-        FTPClient ftpClient = new FTPClient();
-        ftpClient.setUseEPSVwithIPv4(false);//remove if use IPV6
-        String containerName = String.format("username-%s", folderName );
         String externalPort = request.getParameter("external");
         String internalPort = request.getParameter("internal");
-        System.out.printf("%s %s %s %s",fileName, containerName, externalPort, internalPort);
+        //get .tar file data
+        String fileName = filePart.getSubmittedFileName();
+        InputStream fileContent = filePart.getInputStream();
+        
+        //useFTP
+        if(server.equals("null")){
+           out.print("select server");
+        }
+        String[] ss = server.split("-");
+        String serverID = ss[0];
+        String serverIP = ss[1];
+        MyFTP ftp = new MyFTP(serverIP,"student-docker","student",21, "6204062630084");
+        ftp.connect();
+        ftp.saveFile(containerName,"image.tar", fileContent);
+        ftp.disconnect();
+
+        //docker
+        MyDocker docker = new MyDocker(serverIP, 8080, "6204062630084", "student-docker");
+        //load docker image
+        String imageId = docker.readImage(containerName);
+        //create container
+        String containerId = docker.runImage(imageId, containerName, externalPort, internalPort);
+        //out put
+        out.printf("File: %s | Server: %s | Name: %s | Internal: %s | External: %s | image ID: %s | container ID: %s",fileName,serverID, containerName, externalPort, internalPort, imageId, containerId);
     }
 
     /**
